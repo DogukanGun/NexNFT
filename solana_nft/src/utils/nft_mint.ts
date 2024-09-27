@@ -1,5 +1,5 @@
 import { createUmi } from "@metaplex-foundation/umi-bundle-defaults"
-import { createSignerFromKeypair, signerIdentity, generateSigner, percentAmount, KeypairSigner } from "@metaplex-foundation/umi"
+import { createSignerFromKeypair, signerIdentity, generateSigner, percentAmount, KeypairSigner, PublicKey } from "@metaplex-foundation/umi"
 import { createNft, mplTokenMetadata } from "@metaplex-foundation/mpl-token-metadata";
 
 import wallet from "../wallet/wallet.json"
@@ -15,7 +15,7 @@ umi.use(mplTokenMetadata())
 
 const mint = generateSigner(umi);
 
-export async function mintNft(name: string, symbol: string, uri: string): Promise<KeypairSigner> {
+export async function mintNft(name: string, symbol: string, uri: string,owner:PublicKey): Promise<KeypairSigner> {
     let tx = createNft(
         umi,
         {
@@ -23,6 +23,7 @@ export async function mintNft(name: string, symbol: string, uri: string): Promis
             name: name,
             symbol: symbol,
             uri: uri,
+            tokenOwner: owner,
             sellerFeeBasisPoints: percentAmount(1, 2)
         }
     )

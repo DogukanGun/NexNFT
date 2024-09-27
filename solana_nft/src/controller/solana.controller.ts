@@ -11,10 +11,13 @@ export const createNFT = async (req: Request, res: Response, next: NextFunction)
     try {
         //Upload image 
         const imageUri = await uploadNftImage(req.body.image)
+        console.log("Image URI: " + imageUri)
         const metadataUri = await setNftMetadata(req.body.name,req.body.symbol,req.body.description,imageUri)
-        const mint = await mintNft(req.body.name,req.body.symbol,metadataUri)
-        await transferNft(mint.publicKey,publicKey(req.body.receiver))
-        res.status(200).send({pubkey:mint.publicKey})
+        console.log("Metadata URI: " + metadataUri)
+        const mint = await mintNft(req.body.name,req.body.symbol,metadataUri,publicKey(req.body.receiver))
+        console.log("Mint address: "+mint)
+        //await transferNft(mint.publicKey,publicKey(req.body.receiver))
+        res.status(200).send({pubkey:imageUri})
     } catch (error) {
         console.error(error);
         res.sendStatus(500)

@@ -1,0 +1,1 @@
+pubkey = GQ8ph3fYKMERdwwBMFoknDTDRuzbdm71ofcm3rF7fx9p

@@ -3,6 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
+    "start": "nodemon --exec ts-node src/server.ts",
+    "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -14,6 +16,7 @@
     "@metaplex-foundation/umi": "^0.9.2",
     "@metaplex-foundation/umi-bundle-defaults": "^0.9.2",
     "@metaplex-foundation/umi-uploader-bundlr": "^0.9.2",
+    "@metaplex-foundation/umi-uploader-irys": "^0.10.0-beta.0",
     "@project-serum/anchor": "^0.26.0",
     "@solana/web3.js": "^1.87.6",
     "@types/node": "^20.9.4",
@@ -25,6 +28,7 @@
   },
   "devDependencies": {
     "@types/express": "^5.0.0",
+    "nodemon": "^3.0.1",
     "ts-node": "^10.9.1"
   }
 }
