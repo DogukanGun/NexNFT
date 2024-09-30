@@ -17,7 +17,7 @@ export const createNFT = async (req: Request, res: Response, next: NextFunction)
         const mint = await mintNft(req.body.name,req.body.symbol,metadataUri,publicKey(req.body.receiver))
         console.log("Mint address: "+mint)
         //await transferNft(mint.publicKey,publicKey(req.body.receiver))
-        res.status(200).send({pubkey:imageUri})
+        res.status(200).send({pubkey:mint.publicKey})
     } catch (error) {
         console.error(error);
         res.sendStatus(500)
