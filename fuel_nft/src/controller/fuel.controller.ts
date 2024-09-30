@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express"
-import { Provider, TESTNET_NETWORK_URL, Wallet, WalletUnlocked } from "fuels";
+import { Address, Provider, TESTNET_NETWORK_URL, Wallet, WalletUnlocked, bn } from "fuels";
 import { NFTContract, NFTContractFactory } from "../../types";
 
 export const createNFT = async (req: Request, res: Response, next: NextFunction) => {
@@ -18,10 +18,14 @@ export const createNFT = async (req: Request, res: Response, next: NextFunction)
             res.sendStatus(500)
         }
         const nft = new NFTContract(contractId, provider)
-        nft.functions.set_metadata({ bits: req.body.assetIdBits }, req.body.metadataKey, { B256: req.body.metadataB256 })
-        nft.functions.mint({ Address: { bits: req.body.address } }, req.body.subId, 1)
+        const recipient = { Address: { bits: Address.fromPublicKey(req.body.receiver).toB256() } };
+
+        const callResult = await nft.functions
+            .mint(recipient, nft.id.toString(), bn(1))
+            .call();
+        const result = await callResult.waitForResult()
         res.status(200).send({
-            nftAddress: contract.account?.address
+            nftAddress: result.program.account?.address
         })
 
     } catch (error) {
