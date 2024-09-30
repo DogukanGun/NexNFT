@@ -22,7 +22,6 @@ export async function setNftMetadata(name:string,symbol:string,description:strin
             symbol: symbol,
             description: description,
             image,
-            attributes: [],
             properties: {
                 files: [
                     {
