@@ -8,7 +8,7 @@
   Fuels version: 0.94.2
 */
 
-import { Contract, Interface } from "fuels";
+import { Contract, Interface, JsonAbi } from "fuels";
 import type {
   Provider,
   Account,
@@ -3577,7 +3577,7 @@ const storageSlots: StorageSlot[] = [
 
 export class NFTContractInterface extends Interface {
   constructor() {
-    super(abi);
+    super(abi as any);
   }
 
   declare functions: {
@@ -3630,6 +3630,6 @@ export class NFTContract extends Contract {
     id: string | AbstractAddress,
     accountOrProvider: Account | Provider,
   ) {
-    super(id, abi, accountOrProvider);
+    super(id, abi as any, accountOrProvider);
   }
 }

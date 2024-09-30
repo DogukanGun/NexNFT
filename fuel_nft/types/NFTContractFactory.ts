@@ -20,7 +20,7 @@ export class NFTContractFactory extends ContractFactory {
   static readonly bytecode = bytecode;
 
   constructor(accountOrProvider: Account | Provider) {
-    super(bytecode, NFTContract.abi, accountOrProvider);
+    super(bytecode, NFTContract.abi as any, accountOrProvider);
   }
 
   static async deploy (
